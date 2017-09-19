@@ -45,7 +45,7 @@ router.post('/remote/initializeDB',function(request,response) {
         if(err){return console.log(err)}
 
         console.log("Initialize user settings request");
-        Databases.Settings.remove({user:doc._id}, function (err, numRemoved) {
+        Databases.Settings.remove({user:doc._id},{ multi: true }, function (err, numRemoved) {
             if(err){return console.log(err)}
 
             var settings = request.body.settings;
@@ -53,7 +53,6 @@ router.post('/remote/initializeDB',function(request,response) {
                 settings[i].user = doc._id;
                 Databases.Settings.insert(settings[i],function(err,doc){});
             }
-
             response.send({message:'Settings database initialized'});
         });
     });
