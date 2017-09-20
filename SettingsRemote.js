@@ -15,7 +15,8 @@ app.use(allowCrossDomain);
 app.set('port', (process.env.PORT || 3031));
 
 app.use("/public",  express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 app.use('/',require('./server/SettingsRemote'));
 
 var server = app.listen(app.get('port'), function(){
