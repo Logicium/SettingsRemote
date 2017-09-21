@@ -22,7 +22,7 @@ for(var j=0;j<users.length;j++) {
     Databases.Users.insert(users[j], function (err, newDoc) {
         console.log(newDoc);
         console.log('Admin user added.');
-        var Config = fs.readFile(path.join(__dirname, './../public/libraries/Config.json'), 'utf8', function (err, data) {
+        var Config = fs.readFile(path.join(__dirname, './../public/libraries/Default.json'), 'utf8', function (err, data) {
             if (err) throw err;
             data = JSON.parse(data);
             console.log(data);

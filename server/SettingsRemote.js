@@ -27,18 +27,24 @@ router.post('/remote/initializeDB',function(request,response) {
         if(err){return console.log(err)}
 
         console.log("Initialize user settings request");
-        Databases.Settings.remove({user:doc._id},{ multi: true }, function (err1, numRemoved) {
-            if(err1){return console.log(err1)}
-            console.log(numRemoved);
+        Databases.Settings.count({},function(err,numReturned){
+            if(numReturned==0){
+                Databases.Settings.remove({user:doc._id},{ multi: true }, function (err1, numRemoved) {
+                    if(err1){return console.log(err1)}
+                    console.log(numRemoved);
 
-            for(var i =0;i<settings.length;i++){
-                settings[i].user = doc._id;
-                Databases.Settings.insert(settings[i],function(err2,doc2){
-                    if(err2){return console.log(err2)}
-                    console.log(doc2);
+                    for(var i =0;i<settings.length;i++){
+                        settings[i].user = doc._id;
+                        Databases.Settings.insert(settings[i],function(err2,doc2){
+                            if(err2){return console.log(err2)}
+                            console.log(doc2);
+                        });
+                    }
+                    response.send({message:'Settings database initialized'});
                 });
+            }else{
+                response.send({message:'Settings database already populated'});
             }
-            response.send({message:'Settings database initialized'});
         });
     });
 });
