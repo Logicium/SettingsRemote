@@ -3,7 +3,6 @@ var router = express.Router();
 var multer  =   require('multer');
 var path = require('path');
 var jwt = require('jsonwebtoken');
-
 var Databases = require('./Databases');
 
 router.post('/generateToken',function(request,response){
@@ -126,12 +125,13 @@ router.post('/remote/uploadOne',function(req,res,next){
     var upload = multer({ storage : storage}).single('file');
     Databases.Users.findOne({apiToken:request.body.apiToken},function(err,doc){
         if(err){return console.log(err)}
-
         console.log('Upload file request.');
         upload(req,res,function(err) {
-            console.log(req.file);
             if(err) { return res.end(JSON.stringify({message:"Error uploading file.",type:'error'})); }
-            res.end(JSON.stringify({message:"File is Uploaded",filename:req.file.filename,type:'success'}));
+            console.log(req.file);
+            var img = fs.readFileSync('./public/uploads/'+req.file.filename);
+            var img64 = new Buffer(img).toString('base64');
+            res.end(JSON.stringify({message:"File is Uploaded",base64:img64,filename:req.file.filename,type:'success'}));
         });
     });
 });
@@ -162,6 +162,5 @@ router.post('/remote/uploadOne',function(req,res,next){
 //         });
 //     }
 // });
-
 
 module.exports = router;
