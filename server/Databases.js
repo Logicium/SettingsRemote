@@ -15,7 +15,9 @@ Databases = {
 
 var gtiyoUser = {username:'gtiyo', password:'superSecret'};
 var waktUser = {username:'wakt', password:'superSecret'};
-var users = [gtiyoUser,waktUser];
+var developerUser = {username:'developer', password:'superSecret'};
+
+var users = [gtiyoUser,waktUser,developerUser];
 
 //Initialize Settings Database with the following code:
 for(var j=0;j<users.length;j++) {
