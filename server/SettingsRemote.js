@@ -127,7 +127,7 @@ router.post('/remote/uploadOne',function(req,res,next){
         if(err){return console.log(err)}
         console.log('Upload file request.');
         upload(req,res,function(err) {
-            if(err) { return res.end(JSON.stringify({message:"Error uploading file.",type:'error'})); }
+            if(err) { return res.end(JSON.stringify({message:"Error uploading file.",type:'error',err:err})); }
             console.log(req.file);
             res.end(JSON.stringify({message:"File is Uploaded",url:'https://settings-remote.herokuapp.com/public/uploads/'+req.file.filename,type:'success'}));
         });
