@@ -129,9 +129,7 @@ router.post('/remote/uploadOne',function(req,res,next){
         upload(req,res,function(err) {
             if(err) { return res.end(JSON.stringify({message:"Error uploading file.",type:'error'})); }
             console.log(req.file);
-            var img = fs.readFileSync('./public/uploads/'+req.file.filename);
-            var img64 = new Buffer(img).toString('base64');
-            res.end(JSON.stringify({message:"File is Uploaded",base64:img64,filename:req.file.filename,type:'success'}));
+            res.end(JSON.stringify({message:"File is Uploaded",url:'https://settings-remote.herokuapp.com/public/uploads/'+req.file.filename,type:'success'}));
         });
     });
 });
