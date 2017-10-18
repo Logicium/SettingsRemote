@@ -123,7 +123,7 @@ var storage	=	multer.diskStorage({
 
 router.post('/remote/uploadOne',function(req,res,next){
     var upload = multer({ storage : storage}).single('file');
-    Databases.Users.findOne({apiToken:request.body.apiToken},function(err,doc){
+    Databases.Users.findOne({apiToken:req.body.apiToken},function(err,doc){
         if(err){return console.log(err)}
         console.log('Upload file request.');
         upload(req,res,function(err) {
